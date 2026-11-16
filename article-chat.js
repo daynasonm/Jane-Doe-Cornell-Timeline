@@ -257,8 +257,266 @@ const answers = {
     ]
   }
 };
-export const hasPresetQuestion = question => Object.hasOwn(answers, question);
-export async function getChatAnswer(question) {
+const eventAnswers = {
+  "event-01": {
+    "text": "October 19–20, 2024 — Alleged assaults. Doe alleges that seven men drugged and sexually assaulted her at the Chi Phi house. source",
+    "sources": [],
+    "citations": [
+      {
+        "start": 124,
+        "end": 130,
+        "title": "ABC News timeline",
+        "url": "https://abcnews.com/US/timeline-alleged-cornell-university-fraternity-house-rape-investigation/story?id=136884431"
+      }
+    ]
+  },
+  "event-02": {
+    "text": "November 8, 2024 — Police report and chapter suspension. Doe reports the incident to Cornell Police. The chapter is temporarily suspended. source",
+    "sources": [],
+    "citations": [
+      {
+        "start": 139,
+        "end": 145,
+        "title": "ABC News timeline",
+        "url": "https://abcnews.com/US/timeline-alleged-cornell-university-fraternity-house-rape-investigation/story?id=136884431"
+      }
+    ]
+  },
+  "event-03": {
+    "text": "November 2024 — Original decision against criminal charges. Campus police ask the DA’s office to review Doe’s statement. The DA later says prosecutors concluded that the facts in that statement did not support criminal charges under New York law. This is the DA’s explanation of his decision. source",
+    "sources": [],
+    "citations": [
+      {
+        "start": 293,
+        "end": 299,
+        "title": "DA statement",
+        "url": "https://www.tompkinscountyny.gov/News-articles/District-Attorney-statement-regarding-Jane-Doe-v.-Cornell-University-et-al"
+      }
+    ]
+  },
+  "event-04": {
+    "text": "November 26, 2024 — Cornell public statement. Cornell acknowledges allegations of drug abuse and sexual assault and says criminal and administrative investigations are under way. source",
+    "sources": [],
+    "citations": [
+      {
+        "start": 179,
+        "end": 185,
+        "title": "Cornell updates archive",
+        "url": "https://info.cornell.edu/addressing-sexual-violence/updates/"
+      }
+    ]
+  },
+  "event-05": {
+    "text": "January 14, 2025 — Formal Title IX process. According to the lawsuit, Cornell begins the formal Title IX investigation. source",
+    "sources": [],
+    "citations": [
+      {
+        "start": 120,
+        "end": 126,
+        "title": "ABC News timeline",
+        "url": "https://abcnews.com/US/timeline-alleged-cornell-university-fraternity-house-rape-investigation/story?id=136884431"
+      }
+    ]
+  },
+  "event-06": {
+    "text": "May 2–29, 2025 — University hearings. Cornell holds twelve days of hearings, according to records reviewed by ABC News. source",
+    "sources": [],
+    "citations": [
+      {
+        "start": 120,
+        "end": 126,
+        "title": "ABC News timeline",
+        "url": "https://abcnews.com/US/timeline-alleged-cornell-university-fraternity-house-rape-investigation/story?id=136884431"
+      }
+    ]
+  },
+  "event-07": {
+    "text": "August 2025 — University disciplinary decision. ABC News reports that the panel’s decision, issued three months after the May hearings, expelled two students and suspended two others. These were university sanctions. source",
+    "sources": [],
+    "citations": [
+      {
+        "start": 217,
+        "end": 223,
+        "title": "ABC News hearing report",
+        "url": "https://abcnews.com/US/jane-doe-told-cornell-hearing-panel-alleged-2024/story?id=137062506"
+      }
+    ]
+  },
+  "event-08": {
+    "text": "September 16, 2026 — Civil lawsuit filed. Doe sues Cornell, Greek organizations, seven men, and others. source",
+    "sources": [],
+    "citations": [
+      {
+        "start": 104,
+        "end": 110,
+        "title": "ABC News timeline",
+        "url": "https://abcnews.com/US/timeline-alleged-cornell-university-fraternity-house-rape-investigation/story?id=136884431"
+      }
+    ]
+  },
+  "event-09": {
+    "text": "September 21, 2026 — Cornell responds publicly. Cornell acknowledges the lawsuit and says it investigated and adjudicated the allegations. source",
+    "sources": [],
+    "citations": [
+      {
+        "start": 139,
+        "end": 145,
+        "title": "Cornell updates archive",
+        "url": "https://info.cornell.edu/addressing-sexual-violence/updates/"
+      }
+    ]
+  },
+  "event-10": {
+    "text": "September 27–28, 2026 — DA reopens investigation. The reopening is reported September 27. The county publishes the DA’s detailed statement September 28, announcing preparations for possible grand-jury presentation. source",
+    "sources": [],
+    "citations": [
+      {
+        "start": 215,
+        "end": 221,
+        "title": "ABC News timeline",
+        "url": "https://abcnews.com/US/timeline-alleged-cornell-university-fraternity-house-rape-investigation/story?id=136884431"
+      }
+    ]
+  },
+  "event-11": {
+    "text": "October 1, 2026 — Special prosecutor appointed. Governor Kathy Hochul appoints Attorney General Letitia James to take over the criminal investigation. source",
+    "sources": [],
+    "citations": [
+      {
+        "start": 151,
+        "end": 157,
+        "title": "ABC News timeline",
+        "url": "https://abcnews.com/US/timeline-alleged-cornell-university-fraternity-house-rape-investigation/story?id=136884431"
+      }
+    ]
+  },
+  "event-12": {
+    "text": "October 3, 2026 — President pledges reforms. Cornell President Michael Kotlikoff releases a video message about institutional reforms. source",
+    "sources": [],
+    "citations": [
+      {
+        "start": 135,
+        "end": 141,
+        "title": "Cornell updates archive",
+        "url": "https://info.cornell.edu/addressing-sexual-violence/updates/"
+      }
+    ]
+  },
+  "event-13": {
+    "text": "October 5, 2026 — Campus rally. Hundreds participate in an Ithaca rally over Cornell’s response to the allegations. source",
+    "sources": [],
+    "citations": [
+      {
+        "start": 116,
+        "end": 122,
+        "title": "ABC News hearing report",
+        "url": "https://abcnews.com/US/jane-doe-told-cornell-hearing-panel-alleged-2024/story?id=137062506"
+      }
+    ]
+  },
+  "event-14": {
+    "text": "October 6, 2026 — Independent review announced. A special committee of Cornell’s trustees retains Sally Yates of King & Spalding to lead an independent review. source",
+    "sources": [],
+    "citations": [
+      {
+        "start": 160,
+        "end": 166,
+        "title": "Cornell updates archive",
+        "url": "https://info.cornell.edu/addressing-sexual-violence/updates/"
+      }
+    ]
+  },
+  "event-15": {
+    "text": "October 7, 2026 — Cornell expands its FAQ. Cornell adds explanations of the Title IX process and the scope and independence of the Yates review. source",
+    "sources": [],
+    "citations": [
+      {
+        "start": 145,
+        "end": 151,
+        "title": "Cornell FAQ",
+        "url": "https://info.cornell.edu/addressing-sexual-violence/faq/"
+      }
+    ]
+  },
+  "event-18": {
+    "text": "October 7, 2026 — Campus sit-in. More than 100 students took part in a seven-hour sit-in at Toni Morrison Dining Hall in solidarity with Doe and survivors of sexual violence, the Cornell Daily Sun reports. The event occurred October 7; the article was published October 9 and updated October 11. source",
+    "sources": [],
+    "citations": [
+      {
+        "start": 296,
+        "end": 302,
+        "title": "Cornell Daily Sun",
+        "url": "https://www.cornellsun.com/article/2026/10/we-will-be-here-and-show-up-seven-hour-sit-in-draws-over-100-demonstrators-in-solidarity-with-jane-doe"
+      }
+    ]
+  },
+  "event-17": {
+    "text": "October 7 interview, reported October 8, 2026 — Doe’s lawyer raises safety concerns. Thomas Giuffra tells ABC News that Doe has faced threats and attempts to expose her identity and intends to continue the case. source",
+    "sources": [],
+    "citations": [
+      {
+        "start": 212,
+        "end": 218,
+        "title": "ABC News",
+        "url": "https://abcnews.com/US/attorney-jane-doe-facing-threats-calls-alleged-failures/story?id=137078550"
+      }
+    ]
+  },
+  "event-16": {
+    "text": "By October 8, 2026 — Challenge to special prosecutor. Spectrum News reports that a defendant has petitioned to block James’s appointment, alleging bias. The Attorney General’s office says its investigation is under way and is guided by the facts and law. October 8 is the report date; the article does not establish the petition’s exact filing date. source",
+    "sources": [],
+    "citations": [
+      {
+        "start": 350,
+        "end": 356,
+        "title": "Spectrum News",
+        "url": "https://ny1.com/nyc/all-boroughs/news/2026/10/08/defendant-in-cornell-case-petitions-to-block-ag-as-special-prosecutor"
+      }
+    ]
+  },
+  "event-19": {
+    "text": "October 9, 2026 — Civil filings sealed. Justice Phaedra Perry-Bond sealed the complaint and several filings after an incorrect address exposed an unrelated family to threats, Spectrum News reports. Doe’s lawyers were directed to submit versions without addresses. source",
+    "sources": [],
+    "citations": [
+      {
+        "start": 264,
+        "end": 270,
+        "title": "Spectrum News",
+        "url": "https://spectrumlocalnews.com/nys/buffalo/news/2026/10/09/state-supreme-court-judge-seals-cornell-rape-case-complaint"
+      }
+    ]
+  },
+  "event-20": {
+    "text": "October 9, 2026 — Prosecutor challenge receives court date. A signed order schedules October 29 arguments on a defendant’s challenge to James’s appointment. The order does not remove James or halt the investigation. source",
+    "sources": [],
+    "citations": [
+      {
+        "start": 216,
+        "end": 222,
+        "title": "Signed court order",
+        "url": "https://justlawfulblog.wordpress.com/wp-content/uploads/2026/10/911974_26_gillio_lopes_v_kathleen_m_hochul_et_al_order_to_show_cause_13.pdf"
+      }
+    ]
+  },
+  "event-21": {
+    "text": "Reported October 12, 2026 — Request to restrict public statements. A defendant’s lawyer requested restrictions on public statements. No ruling reported. source",
+    "sources": [],
+    "citations": [
+      {
+        "start": 153,
+        "end": 159,
+        "title": "Washington Post",
+        "url": "https://www.washingtonpost.com/education/2026/10/12/defendants-lawyer-cornell-case-asks-judge-put-limits-public-statements/"
+      }
+    ]
+  }
+};
+export const hasPresetQuestion = question => question === "What happened here?" || Object.hasOwn(answers, question);
+export async function getChatAnswer(question, history, passageIndex, signal, eventId) {
+  if (question === "What happened here?") {
+    if (!Object.hasOwn(eventAnswers, eventId)) throw new Error("Choose a dated event first.");
+    return eventAnswers[eventId];
+  }
   if (!hasPresetQuestion(question)) throw new Error("Choose one of the questions shown on this page.");
   return answers[question];
 }
