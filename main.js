@@ -1,6 +1,6 @@
 import { initArticleTypesetting } from './article-typesetting.js';
 
-const articleUrl = location.origin + '/';
+const articleUrl = new URL('./', location.href).href;
 const articleTitle = 'Jane Doe at Cornell — The unfolding timeline';
 const dialog = document.querySelector('#exit-dialog');
 const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
