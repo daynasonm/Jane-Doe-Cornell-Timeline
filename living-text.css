@@ -1,0 +1,9 @@
+.world-story .story-paragraph{transition:font-size .65s ease}
+.world-story .story-paragraph.reading-focus{font-size:calc(var(--attention-base-size,1em) * 1.18);color:inherit}
+.world-story .story-paragraph .story-emphasis{color:inherit;font-size:inherit;box-decoration-break:clone;-webkit-box-decoration-break:clone;transition:background-color .45s ease,text-decoration-color .45s ease}
+.world-story .story-paragraph.reading-focus .story-emphasis{background-color:#e8e8e880;text-decoration:underline;text-decoration-color:#797979;text-decoration-thickness:1px;text-underline-offset:.15em}
+.world-story .story-paragraph.reading-focus .world-word{background-color:#e8e8e880;color:inherit}
+.world-story.attention-measuring .story-paragraph,
+body[data-reading-attention="away"] .world-story .story-paragraph,
+body[data-reading-attention="away"] .world-story .story-paragraph .story-emphasis{transition:none}
+@media(prefers-reduced-motion:reduce){.world-story .story-paragraph,.world-story .story-paragraph .story-emphasis{transition:none}}

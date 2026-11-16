@@ -1,0 +1,11 @@
+.kinetic-type-scene{position:fixed;inset:0;z-index:20;display:none;overflow:hidden;background:#ffffff;cursor:grab;touch-action:pan-y}
+.kinetic-type-scene:active{cursor:grabbing}
+.kinetic-type-tank{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.kinetic-type-read{position:fixed;right:28px;bottom:24px;z-index:21;display:none;background:transparent;padding:12px 8px;font-family:var(--sans);font-size:12px;font-weight:400;color:#595959;cursor:pointer}
+.kinetic-type-read:hover{color:#111111;text-decoration:underline;text-underline-offset:4px}
+.type-water-active .kinetic-type-scene,.type-water-active .kinetic-type-read{display:block}
+.type-water-active .world-story .story-paragraph{transition:none}
+.type-water-active .world-illustration{opacity:0!important}
+.type-water-active .mind-dock,.type-water-active .mind-note{visibility:hidden}
+.type-water-active .water-source,.type-water-active .water-source *{color:transparent!important;text-shadow:none!important;text-decoration-color:transparent!important;background-color:transparent!important}
+@media(prefers-reduced-motion:reduce){.kinetic-type-scene,.kinetic-type-read{display:none!important}}
